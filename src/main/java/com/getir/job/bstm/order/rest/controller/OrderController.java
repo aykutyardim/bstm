@@ -6,6 +6,7 @@ import com.getir.job.bstm.order.model.Order;
 import com.getir.job.bstm.order.rest.request.OrderRequest;
 import com.getir.job.bstm.order.rest.response.OrderResponse;
 import com.getir.job.bstm.order.service.OrderService;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,6 +32,7 @@ public class OrderController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     public ResponseEntity<?> getAll() {
         try {
             List<OrderResponse> orderResponses = orderService.getAll().stream()
@@ -45,6 +47,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             Order order = orderService.getById(id)
@@ -58,6 +61,7 @@ public class OrderController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @GetMapping("/filter")
     public ResponseEntity<?> getAllByCreatedAtBetween(@RequestParam String start, @RequestParam String  end) {
         try {
@@ -74,6 +78,7 @@ public class OrderController {
     }
 
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PostMapping ResponseEntity<?> create(Principal principal, @RequestBody OrderRequest orderRequest) {
         try {
             Order order = orderMapper.requestToEntity(principal.getName(), orderRequest);

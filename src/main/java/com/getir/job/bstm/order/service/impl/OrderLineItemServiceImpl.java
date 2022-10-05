@@ -6,7 +6,6 @@ import com.getir.job.bstm.order.exception.InvalidQuantityException;
 import com.getir.job.bstm.order.model.OrderLineItem;
 import com.getir.job.bstm.order.repository.OrderLineItemRepository;
 import com.getir.job.bstm.order.service.OrderLineItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

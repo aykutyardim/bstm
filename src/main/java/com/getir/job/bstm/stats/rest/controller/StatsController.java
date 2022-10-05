@@ -3,6 +3,7 @@ package com.getir.job.bstm.stats.rest.controller;
 import com.getir.job.bstm.stats.mapper.StatsMapper;
 import com.getir.job.bstm.stats.rest.response.StatsResponse;
 import com.getir.job.bstm.stats.service.StatsService;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +28,7 @@ public class StatsController {
 
     @GetMapping
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     public ResponseEntity<?> getAllByUserIdAndYear(@RequestParam String userId, @RequestParam String year) {
         try{
             Long userId_ = Long.valueOf(userId);

@@ -6,6 +6,7 @@ import com.getir.job.bstm.book.model.Book;
 import com.getir.job.bstm.book.rest.request.BookRequest;
 import com.getir.job.bstm.book.rest.response.BookResponse;
 import com.getir.job.bstm.book.service.BookService;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +30,7 @@ public class BookController {
     }
 
     @GetMapping
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<?> getAll(){
         try {
@@ -43,6 +45,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<?> getById (@PathVariable Long id) {
 
@@ -57,6 +60,7 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PostMapping
     public ResponseEntity<?> create (@Valid @RequestBody BookRequest bookRequest) {
 
@@ -71,6 +75,7 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PatchMapping("/{id}")
     public ResponseEntity<?> update (@PathVariable Long id, @Valid @RequestBody BookRequest bookRequest) {
 

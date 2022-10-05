@@ -5,7 +5,7 @@ import com.getir.job.bstm.order.mapper.OrderMapper;
 import com.getir.job.bstm.order.rest.response.OrderResponse;
 import com.getir.job.bstm.user.model.User;
 import com.getir.job.bstm.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/order")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<?> getOrders(@PathVariable Long id, @RequestParam String pageNumber, @RequestParam String pageSize) {
 

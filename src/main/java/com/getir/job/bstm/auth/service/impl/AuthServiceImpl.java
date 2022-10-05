@@ -13,7 +13,6 @@ import com.getir.job.bstm.user.model.User;
 import com.getir.job.bstm.user.service.RoleService;
 import com.getir.job.bstm.user.service.UserService;
 import com.getir.job.bstm.user.util.ERole;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

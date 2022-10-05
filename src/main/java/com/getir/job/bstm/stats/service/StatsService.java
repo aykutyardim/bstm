@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface StatsService {
     List<Stats> getAllByUserIdAndYear(Long userId, Integer year);
-    void increaseByUserCountAndAmount(User user, Integer count, Double amount);
+    Stats increaseByUserCountAndAmount(User user, Integer count, Double amount);
 }

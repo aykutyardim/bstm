@@ -7,11 +7,13 @@ import com.getir.job.bstm.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,7 +31,7 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public void increaseByUserCountAndAmount(User user, Integer count, Double amount){
+    public Stats increaseByUserCountAndAmount(User user, Integer count, Double amount){
 
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -37,10 +39,10 @@ public class StatsServiceImpl implements StatsService {
         Integer year = localDate.getYear();
 
 
-        Stats stats = statsRepository.findByUser_IdAndMonthAndYear(
-                user.getId(), month, year).orElse(null);
+        Optional<Stats> stats = statsRepository.findByUser_IdAndMonthAndYear(
+                user.getId(), month, year);
 
-        if (stats == null) {
+        if (!stats.isPresent()) {
             Stats newStats = new Stats();
             newStats.setUser(user);
             newStats.setMonth(month);
@@ -48,13 +50,14 @@ public class StatsServiceImpl implements StatsService {
             newStats.setTotalBookCount(count);
             newStats.setTotalOrderCount(1);
             newStats.setTotalPurchasedAmount(amount);
-            statsRepository.save(newStats);
+            return statsRepository.save(newStats);
         }
         else {
-            stats.setTotalBookCount(stats.getTotalBookCount() + count);
-            stats.setTotalOrderCount(stats.getTotalOrderCount() + 1);
-            stats.setTotalPurchasedAmount(stats.getTotalPurchasedAmount() + amount);
-            statsRepository.save(stats);
+            Stats existing = stats.get();
+            existing.setTotalBookCount(existing.getTotalBookCount() + count);
+            existing.setTotalOrderCount(existing.getTotalOrderCount() + 1);
+            existing.setTotalPurchasedAmount(existing.getTotalPurchasedAmount() + amount);
+            return statsRepository.save(existing);
         }
     }
 }
