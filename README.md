@@ -133,7 +133,7 @@ http://localhost:8080/api/v1/swagger-ui.html
 
 - Returns users' order statistics with given year
 
-- Permitted only registered admins.
+- Permitted only registered customers and admins.
 
 ### User Controller
 
