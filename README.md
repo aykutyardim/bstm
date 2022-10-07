@@ -8,6 +8,8 @@
 - Spring Security
 - Json Web Tokens
 - Mapstruct
+- Junit
+- Mocito
 
 ## Build & Run
 
